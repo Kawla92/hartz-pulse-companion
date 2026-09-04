@@ -27,20 +27,22 @@ export function MeasurementProgress({ progress, measuring, children }: Props) {
           className="text-foreground/85"
         />
       </svg>
-      <svg viewBox="0 0 220 220" className="absolute inset-0 -rotate-90">
-        <circle
-          cx="110"
-          cy="110"
-          r={radius}
-          fill="none"
-          stroke="var(--accent)"
-          strokeWidth="4"
-          strokeLinecap="round"
-          strokeDasharray={circumference}
-          strokeDashoffset={circumference * (1 - progress / 100)}
-          style={{ transition: "stroke-dashoffset 120ms linear" }}
-        />
-      </svg>
+      {measuring && (
+        <svg viewBox="0 0 220 220" className="absolute inset-0 -rotate-90">
+          <circle
+            cx="110"
+            cy="110"
+            r={radius}
+            fill="none"
+            stroke="var(--accent)"
+            strokeWidth="4"
+            strokeLinecap="round"
+            strokeDasharray={circumference}
+            strokeDashoffset={circumference * (1 - progress / 100)}
+            style={{ transition: "stroke-dashoffset 120ms linear" }}
+          />
+        </svg>
+      )}
       <div className="relative z-10 px-6 text-center">
         {children ?? (
           <span className="text-lg font-semibold" aria-live="polite">
