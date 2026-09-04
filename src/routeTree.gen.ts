@@ -10,11 +10,17 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as MeasurementRouteImport } from './routes/measurement'
 import { Route as StatusRouteImport } from './routes/status'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const MeasurementRoute = MeasurementRouteImport.update({
+  id: '/measurement',
+  path: '/measurement',
   getParentRoute: () => rootRouteImport,
 } as any)
 const StatusRoute = StatusRouteImport.update({
@@ -25,27 +31,31 @@ const StatusRoute = StatusRouteImport.update({
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/measurement': typeof MeasurementRoute
   '/status': typeof StatusRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/measurement': typeof MeasurementRoute
   '/status': typeof StatusRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/measurement': typeof MeasurementRoute
   '/status': typeof StatusRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/status'
+  fullPaths: '/' | '/measurement' | '/status'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/status'
-  id: '__root__' | '/' | '/status'
+  to: '/' | '/measurement' | '/status'
+  id: '__root__' | '/' | '/measurement' | '/status'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  MeasurementRoute: typeof MeasurementRoute
   StatusRoute: typeof StatusRoute
 }
 
@@ -56,6 +66,13 @@ declare module '@tanstack/react-router' {
       path: '/'
       fullPath: '/'
       preLoaderRoute: typeof IndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/measurement': {
+      id: '/measurement'
+      path: '/measurement'
+      fullPath: '/measurement'
+      preLoaderRoute: typeof MeasurementRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/status': {
@@ -70,6 +87,7 @@ declare module '@tanstack/react-router' {
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  MeasurementRoute: MeasurementRoute,
   StatusRoute: StatusRoute,
 }
 export const routeTree = rootRouteImport
