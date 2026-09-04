@@ -79,15 +79,15 @@ export function simulateHeartRate(
   activityStatus: ActivityStatus,
   physicalStatus: PhysicalStatus,
 ): number {
-  const base = activityStatus === "rest" ? [55, 115] : [80, 160];
+  const [min, max] = activityStatus === "rest" ? ([55, 115] as const) : ([80, 160] as const);
   const bias: Record<PhysicalStatus, number> = {
     stress: 12,
     exhaustion: 6,
     illness: 14,
     calm: -8,
   };
-  const raw = base[0] + Math.random() * (base[1] - base[0]) + bias[physicalStatus];
-  return Math.round(Math.min(base[1], Math.max(base[0], raw)));
+  const raw = min + Math.random() * (max - min) + bias[physicalStatus];
+  return Math.round(Math.min(max, Math.max(min, raw)));
 }
 
 /** Simple, easily editable prototype classification. */
