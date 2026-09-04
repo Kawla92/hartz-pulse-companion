@@ -1,24 +1,52 @@
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute, useNavigate } from "@tanstack/react-router";
+import { AppShell } from "@/components/hartz/AppShell";
+import { PrimaryButton } from "@/components/hartz/PrimaryButton";
 
-// No head() here: the home route inherits title/description/og/twitter from
-// __root.tsx, and ships no og:image so serve-time hosting can inject the
-// project's social preview (explicit og:image or latest screenshot).
 export const Route = createFileRoute("/")({
-  component: Index,
+  head: () => ({
+    meta: [
+      { title: "Härtz – Heart Rate Companion" },
+      {
+        name: "description",
+        content:
+          "Härtz is a wellness companion for adults 18+ that simulates heart-rate readings in the context of stress, fatigue and activity. Not a medical device.",
+      },
+      { property: "og:title", content: "Härtz – Heart Rate Companion" },
+      {
+        property: "og:description",
+        content:
+          "A calm, mobile-first wellness prototype that shows how heart-rate information can be presented in context. Not a medical device.",
+      },
+    ],
+  }),
+  component: Welcome,
 });
 
-// IMPORTANT: Replace this placeholder. See ./README.md for routing conventions.
-function Index() {
+function Welcome() {
+  const navigate = useNavigate();
+
   return (
-    <div
-      className="flex min-h-screen items-center justify-center"
-      style={{ backgroundColor: "#fcfbf8" }}
-    >
-      <img
-        data-lovable-blank-page-placeholder="REMOVE_THIS"
-        src="https://cdn.gpteng.co/blank-app-v1.svg"
-        alt="Your app will live here!"
-      />
-    </div>
+    <AppShell>
+      <div className="flex flex-1 flex-col justify-center gap-10 py-6">
+        <section className="soft-rise space-y-5 rounded-3xl bg-card/90 px-6 py-7 text-[0.95rem] leading-relaxed text-card-foreground">
+          <h1 className="sr-only">Härtz – Heart Rate Companion</h1>
+          <p>
+            Härtz is a heart rate app, it is a wellness tool intended exclusively for adults over
+            the age of 18.
+          </p>
+          <p>It allows you to observe the impact of stress and fatigue on the body.</p>
+          <p>
+            It is not a medical device and does not in any way replace the advice, diagnosis, or
+            care of a cardiologist.
+          </p>
+          <p>
+            In the event of chest pain, dizziness, or persistent palpitations, contact a doctor
+            immediately.
+          </p>
+        </section>
+
+        <PrimaryButton onClick={() => navigate({ to: "/status" })}>Start</PrimaryButton>
+      </div>
+    </AppShell>
   );
 }
