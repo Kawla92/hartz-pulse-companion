@@ -12,7 +12,7 @@ export function StatusSwatch({ status, className }: { status: Status; className?
 }
 
 /** Status legend from the reference design; the active row is highlighted. */
-export function HeartRateStatusLegend({ active }: { active?: Status }) {
+export function HeartRateStatusLegend({ active }: { active?: Status | undefined }) {
   const statuses: Status[] = ["normal", "risky", "attention"];
   return (
     <ul className="space-y-3">
