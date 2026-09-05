@@ -20,14 +20,14 @@ export function HistoryItem({
       <button
         type="button"
         onClick={() => onSelect(record)}
-        className="flex w-full items-center gap-4 rounded-3xl bg-card px-4 py-4 text-left transition-colors hover:bg-panel-deep focus-visible:ring-2 focus-visible:ring-ring focus-visible:outline-none"
+        className="flex w-full items-center gap-3.5 rounded-3xl bg-card px-4 py-3.5 sm:px-5 text-left transition-colors hover:bg-panel-deep focus-visible:ring-2 focus-visible:ring-ring focus-visible:outline-none"
       >
         <StatusSwatch status={record.heartRateStatus} />
         <span className="min-w-0 flex-1">
-          <span className="block text-sm text-muted-foreground">
+          <span className="block text-xs leading-4 text-muted-foreground">
             {formatDate(record.timestamp)} · {formatTime(record.timestamp)}
           </span>
-          <span className="block truncate text-sm">
+          <span className="mt-0.5 block truncate text-[15px] leading-5">
             {ACTIVITY_LABELS[record.activityStatus]} · {PHYSICAL_LABELS[record.physicalStatus]}
           </span>
         </span>

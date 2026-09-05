@@ -47,12 +47,12 @@ function HistoryPage() {
 
   return (
     <AppShell>
-      <div className="space-y-5">
+      <div className="space-y-4">
         <BackButton />
-        <h1 className="text-xl font-semibold">Measurement history</h1>
+        <h1 className="text-lg font-semibold tracking-tight sm:text-xl">Measurement history</h1>
 
         {records.length === 0 ? (
-          <div className="space-y-6 rounded-3xl bg-card px-6 py-10 text-center">
+          <div className="space-y-6 rounded-3xl bg-card px-6 py-12 text-center">
             <p className="text-base text-muted-foreground">No measurements yet.</p>
             <PrimaryButton className="block px-8 text-base" onClick={() => navigate({ to: "/status" })}>
               Start a measurement
@@ -60,14 +60,14 @@ function HistoryPage() {
           </div>
         ) : (
           <>
-            <ul className="space-y-3">
+            <ul className="space-y-2.5">
               {records.map((record) => (
                 <HistoryItem key={record.id} record={record} onSelect={setSelected} />
               ))}
             </ul>
 
             {selected && (
-              <section className="soft-rise space-y-3 rounded-3xl bg-panel-deep px-5 py-5">
+              <section className="soft-rise space-y-3 rounded-3xl bg-panel-deep px-5 py-5 sm:px-6">
                 <div className="flex items-center justify-between">
                   <h2 className="text-base font-semibold">Measurement details</h2>
                   <button
