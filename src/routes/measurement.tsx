@@ -68,7 +68,7 @@ function MeasurementPage() {
       if (saved.current) return;
       saved.current = true;
       const bpm = simulateHeartRate(ctx.activityStatus, ctx.physicalStatus);
-      const status = classifyHeartRate(bpm, ctx.activityStatus);
+      const status = classifyHeartRate(bpm, ctx.activityStatus, ctx.physicalStatus);
       setHeartRate(bpm);
       setHeartRateStatus(status);
       addToHistory({

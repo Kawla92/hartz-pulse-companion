@@ -74,36 +74,64 @@ export function clearHistory() {
   window.localStorage.removeItem(HISTORY_KEY);
 }
 
-/** Simulated sample value — no sensor is involved. */
+/** Simulated sample value — no sensor is involved.
+ *  The range is chosen from both activity and physical/emotional context.
+ */
+const SIMULATION_RANGES: Record<
+  ActivityStatus,
+  Record<PhysicalStatus, [number, number]>
+> = {
+  rest: {
+    calm: [70, 85],
+    stress: [85, 105],
+    exhaustion: [80, 105],
+    illness: [90, 115],
+  },
+  activity: {
+    calm: [100, 125],
+    stress: [115, 140],
+    exhaustion: [120, 145],
+    illness: [125, 150],
+  },
+};
+
 export function simulateHeartRate(
   activityStatus: ActivityStatus,
   physicalStatus: PhysicalStatus,
 ): number {
-  const [min, max] = activityStatus === "rest" ? ([55, 115] as const) : ([80, 160] as const);
-  const bias: Record<PhysicalStatus, number> = {
-    stress: 12,
-    exhaustion: 6,
-    illness: 14,
-    calm: -8,
-  };
-  const raw = min + Math.random() * (max - min) + bias[physicalStatus];
+  const [min, max] = SIMULATION_RANGES[activityStatus][physicalStatus];
+  const raw = min + Math.random() * (max - min);
   return Math.round(Math.min(max, Math.max(min, raw)));
 }
 
-/** Simple, easily editable prototype classification. */
+/** Simple, easily editable prototype classification.
+ *  Resting measurements use the prototype resting thresholds.
+ *  Activity measurements are classified contextually by physical/emotional state.
+ */
 export function classifyHeartRate(
   bpm: number,
   activityStatus: ActivityStatus,
+  physicalStatus: PhysicalStatus,
 ): HeartRateStatus {
   if (activityStatus === "rest") {
     if (bpm > 100) return "risky";
     if (bpm < 70) return "attention";
     return "normal";
   }
-  // Contextual / illustrative only for in-activity measurements.
-  if (bpm > 150) return "risky";
-  if (bpm < 90) return "attention";
-  return "normal";
+
+  // In activity: contextual / illustrative classification only.
+  switch (physicalStatus) {
+    case "calm":
+      return "normal";
+    case "stress":
+      return bpm > 125 ? "attention" : "normal";
+    case "exhaustion":
+      return bpm >= 120 ? "attention" : "normal";
+    case "illness":
+      return bpm >= 140 ? "risky" : "attention";
+    default:
+      return "normal";
+  }
 }
 
 export function formatDate(ts: number): string {
