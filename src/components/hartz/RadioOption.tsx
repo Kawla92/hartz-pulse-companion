@@ -10,7 +10,7 @@ interface RadioOptionProps {
 
 export function RadioOption({ name, label, value, checked, onSelect }: RadioOptionProps) {
   return (
-    <label className="flex min-h-11 cursor-pointer items-center gap-4 py-1.5">
+    <label className="flex min-h-11 cursor-pointer items-center gap-3.5 py-1.5">
       <input
         type="radio"
         name={name}
@@ -33,7 +33,7 @@ export function RadioOption({ name, label, value, checked, onSelect }: RadioOpti
           )}
         />
       </span>
-      <span className="text-base text-card-foreground">{label}</span>
+      <span className="text-[15px] leading-5 text-card-foreground">{label}</span>
     </label>
   );
 }

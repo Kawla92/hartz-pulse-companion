@@ -57,14 +57,14 @@ function StatusPage() {
 
   return (
     <AppShell>
-      <div className="space-y-5">
+      <div className="space-y-4">
         <BackButton />
 
-        <section className="rounded-3xl bg-card px-5 py-5">
-          <h2 className="text-xs font-semibold tracking-widest text-muted-foreground uppercase">
+        <section className="rounded-3xl bg-card px-5 py-4 sm:px-6 sm:py-5">
+          <h2 className="text-[11px] leading-4 font-semibold tracking-[0.14em] text-muted-foreground uppercase">
             Select your activity status :
           </h2>
-          <div className="mt-3 space-y-1">
+          <div className="mt-2.5 space-y-0.5">
             {(Object.keys(ACTIVITY_LABELS) as ActivityStatus[]).map((value) => (
               <RadioOption
                 key={value}
@@ -81,11 +81,11 @@ function StatusPage() {
           </div>
         </section>
 
-        <section className="rounded-3xl bg-card px-5 py-5">
-          <h2 className="text-xs font-semibold tracking-widest text-muted-foreground uppercase">
+        <section className="rounded-3xl bg-card px-5 py-4 sm:px-6 sm:py-5">
+          <h2 className="text-[11px] leading-4 font-semibold tracking-[0.14em] text-muted-foreground uppercase">
             Select physical / emotional status :
           </h2>
-          <div className="mt-3 space-y-1">
+          <div className="mt-2.5 space-y-0.5">
             {(Object.keys(PHYSICAL_LABELS) as PhysicalStatus[]).map((value) => (
               <RadioOption
                 key={value}
@@ -110,7 +110,7 @@ function StatusPage() {
           </p>
         )}
 
-        <PrimaryButton className="block" onClick={start}>
+        <PrimaryButton className="mt-1 block" onClick={start}>
           Start Measurement
         </PrimaryButton>
       </div>
