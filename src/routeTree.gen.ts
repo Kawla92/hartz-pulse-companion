@@ -12,6 +12,7 @@ import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as HistoryRouteImport } from './routes/history'
 import { Route as MeasurementRouteImport } from './routes/measurement'
+import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
 import { Route as StatusRouteImport } from './routes/status'
 
 const IndexRoute = IndexRouteImport.update({
@@ -29,6 +30,11 @@ const MeasurementRoute = MeasurementRouteImport.update({
   path: '/measurement',
   getParentRoute: () => rootRouteImport,
 } as any)
+const SitemapDotxmlRoute = SitemapDotxmlRouteImport.update({
+  id: '/sitemap.xml',
+  path: '/sitemap.xml',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const StatusRoute = StatusRouteImport.update({
   id: '/status',
   path: '/status',
@@ -39,12 +45,14 @@ export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/history': typeof HistoryRoute
   '/measurement': typeof MeasurementRoute
+  '/sitemap.xml': typeof SitemapDotxmlRoute
   '/status': typeof StatusRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/history': typeof HistoryRoute
   '/measurement': typeof MeasurementRoute
+  '/sitemap.xml': typeof SitemapDotxmlRoute
   '/status': typeof StatusRoute
 }
 export interface FileRoutesById {
@@ -52,20 +60,23 @@ export interface FileRoutesById {
   '/': typeof IndexRoute
   '/history': typeof HistoryRoute
   '/measurement': typeof MeasurementRoute
+  '/sitemap.xml': typeof SitemapDotxmlRoute
   '/status': typeof StatusRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/history' | '/measurement' | '/status'
+  fullPaths: '/' | '/history' | '/measurement' | '/sitemap.xml' | '/status'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/history' | '/measurement' | '/status'
-  id: '__root__' | '/' | '/history' | '/measurement' | '/status'
+  to: '/' | '/history' | '/measurement' | '/sitemap.xml' | '/status'
+  id:
+    '__root__' | '/' | '/history' | '/measurement' | '/sitemap.xml' | '/status'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   HistoryRoute: typeof HistoryRoute
   MeasurementRoute: typeof MeasurementRoute
+  SitemapDotxmlRoute: typeof SitemapDotxmlRoute
   StatusRoute: typeof StatusRoute
 }
 
@@ -92,6 +103,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof MeasurementRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/sitemap.xml': {
+      id: '/sitemap.xml'
+      path: '/sitemap.xml'
+      fullPath: '/sitemap.xml'
+      preLoaderRoute: typeof SitemapDotxmlRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/status': {
       id: '/status'
       path: '/status'
@@ -106,6 +124,7 @@ const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   HistoryRoute: HistoryRoute,
   MeasurementRoute: MeasurementRoute,
+  SitemapDotxmlRoute: SitemapDotxmlRoute,
   StatusRoute: StatusRoute,
 }
 export const routeTree = rootRouteImport
