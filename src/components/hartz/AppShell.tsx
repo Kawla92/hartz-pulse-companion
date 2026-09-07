@@ -7,8 +7,8 @@ export function AppShell({ children }: { children: ReactNode }) {
   return (
     <div className="relative min-h-screen overflow-hidden bg-background">
       <ECGBackground />
-      <div className="relative mx-auto flex min-h-screen w-full max-w-[430px] flex-col px-5 pt-10 pb-8 sm:max-w-[460px] sm:px-6 sm:pt-12">
-        <header className="pb-7">
+      <div className="relative mx-auto flex min-h-screen w-full max-w-[430px] flex-col px-5 pt-7 pb-6 sm:max-w-[460px] sm:px-6 sm:pt-12 sm:pb-8">
+        <header className="pb-5 sm:pb-7">
           <HartzLogo />
         </header>
         <main className="flex flex-1 flex-col">{children}</main>
